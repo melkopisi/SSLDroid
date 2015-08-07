@@ -13,20 +13,22 @@ public class TcpProxy {
     String tunnelHost;
     int tunnelPort;
     String keyFile, keyPass;
+    boolean useSNI;
     TcpProxyServerThread server = null;
 
-    public TcpProxy(String tunnelName, int listenPort, String targetHost, int targetPort, String keyFile, String keyPass) {
+    public TcpProxy(String tunnelName, int listenPort, String targetHost, int targetPort, String keyFile, String keyPass, boolean useSNI) {
         this.tunnelName = tunnelName;
         this.listenPort = listenPort;
         this.tunnelHost = targetHost;
         this.tunnelPort = targetPort;
         this.keyFile = keyFile;
         this.keyPass = keyPass;
+        this.useSNI = useSNI;
     }
 
     public void serve() throws IOException {
         server = new TcpProxyServerThread(this.tunnelName, this.listenPort, this.tunnelHost,
-                                          this.tunnelPort, this.keyFile, this.keyPass);
+                                          this.tunnelPort, this.keyFile, this.keyPass, this.useSNI);
         server.start();
     }
 

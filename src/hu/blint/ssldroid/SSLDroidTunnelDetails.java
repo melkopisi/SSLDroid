@@ -34,6 +34,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import hu.blint.ssldroid.db.SSLDroidDbAdapter;
@@ -159,6 +160,7 @@ public class SSLDroidTunnelDetails extends Activity {
     private EditText remoteport;
     private EditText pkcsfile;
     private EditText pkcspass;
+    private CheckBox usesni;
     private Long rowId;
     private Boolean doClone = false;
     private SSLDroidDbAdapter dbHelper;
@@ -177,6 +179,7 @@ public class SSLDroidTunnelDetails extends Activity {
         remoteport = (EditText) findViewById(R.id.remoteport);
         pkcsfile = (EditText) findViewById(R.id.pkcsfile);
         pkcspass = (EditText) findViewById(R.id.pkcspass);
+        usesni = (CheckBox) findViewById(R.id.usesni);
         Button pickFile = (Button) findViewById(R.id.pickFile);
 
         pickFile.setOnClickListener(new View.OnClickListener() {
@@ -307,6 +310,12 @@ public class SSLDroidTunnelDetails extends Activity {
                                               .getColumnIndexOrThrow(SSLDroidDbAdapter.KEY_PKCSFILE)));
             pkcspass.setText(Tunnel.getString(Tunnel
                                               .getColumnIndexOrThrow(SSLDroidDbAdapter.KEY_PKCSPASS)));
+            if (Tunnel.getInt(Tunnel.getColumnIndexOrThrow(SSLDroidDbAdapter.KEY_USE_SNI)) != 0){
+                usesni.setChecked(true);
+            }
+            else{
+                usesni.setChecked(false);
+            }
         }
     }
 
@@ -385,6 +394,9 @@ public class SSLDroidTunnelDetails extends Activity {
         }
         String sPkcsfile = pkcsfile.getText().toString();
         String sPkcspass = pkcspass.getText().toString();
+        Integer sUsesni = 1;
+        if (!usesni.isChecked())
+            sUsesni = 0;
 
         //make sure that we have all of our values correctly set
         if (sName.length() == 0) {
@@ -402,13 +414,13 @@ public class SSLDroidTunnelDetails extends Activity {
 
         if (rowId == null || doClone) {
             long id = dbHelper.createTunnel(sName, sLocalport, sRemotehost,
-                                            sRemoteport, sPkcsfile, sPkcspass);
+                                            sRemoteport, sPkcsfile, sPkcspass, sUsesni);
             if (id > 0) {
                 rowId = id;
             }
         } else {
             dbHelper.updateTunnel(rowId, sName, sLocalport, sRemotehost, sRemoteport,
-                                  sPkcsfile, sPkcspass);
+                                  sPkcsfile, sPkcspass, sUsesni);
         }
         Log.d("SSLDroid", "Saving settings...");
 

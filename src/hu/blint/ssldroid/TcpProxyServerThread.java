@@ -21,6 +21,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.util.Log;
 
 public class TcpProxyServerThread extends Thread {
@@ -30,18 +32,21 @@ public class TcpProxyServerThread extends Thread {
     String tunnelHost;
     int tunnelPort;
     String keyFile, keyPass;
+    boolean useSNI;
     Relay inRelay, outRelay;
     ServerSocket ss = null;
     int sessionid = 0;
     private SSLSocketFactory sslSocketFactory;
 
-    public TcpProxyServerThread(String tunnelName, int listenPort, String tunnelHost, int tunnelPort, String keyFile, String keyPass) {
+    public TcpProxyServerThread(String tunnelName, int listenPort, String tunnelHost,
+	                        int tunnelPort, String keyFile, String keyPass, boolean useSNI) {
         this.tunnelName = tunnelName;
         this.listenPort = listenPort;
         this.tunnelHost = tunnelHost;
         this.tunnelPort = tunnelPort;
         this.keyFile = keyFile;
         this.keyPass = keyPass;
+        this.useSNI = useSNI;
     }
 
     // Create a trust manager that does not validate certificate chains
@@ -130,7 +135,8 @@ public class TcpProxyServerThread extends Thread {
                 try {
                     final SSLSocketFactory sf = getSocketFactory(this.keyFile, this.keyPass, this.sessionid);
                     st = (SSLSocket) sf.createSocket(this.tunnelHost, this.tunnelPort);
-                    setSNIHost(sf, (SSLSocket) st, this.tunnelHost);
+                    if (this.useSNI)
+                        setSNIHost(sf, (SSLSocket) st, this.tunnelHost);
                     ((SSLSocket) st).startHandshake();
                 } catch (IOException e) {
                     Log.d("SSLDroid", tunnelName+"/"+sessionid+": SSL failure: " + e.toString());
@@ -169,6 +175,7 @@ public class TcpProxyServerThread extends Thread {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void setSNIHost(final SSLSocketFactory factory, final SSLSocket socket, final String hostname) {
         if (factory instanceof android.net.SSLCertificateSocketFactory && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             ((android.net.SSLCertificateSocketFactory)factory).setHostname(socket, hostname);

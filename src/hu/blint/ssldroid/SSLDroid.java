@@ -47,8 +47,13 @@ public class SSLDroid extends Service {
                                               .getColumnIndexOrThrow(SSLDroidDbAdapter.KEY_PKCSFILE));
             String keyPass = cursor.getString(cursor
                                               .getColumnIndexOrThrow(SSLDroidDbAdapter.KEY_PKCSPASS));
+            boolean useSNI = true;
+            int useSNIrepr = cursor.getInt(cursor.getColumnIndexOrThrow(SSLDroidDbAdapter.KEY_USE_SNI));
+            if (useSNIrepr == 0)
+                useSNI = false;
+
             try {
-                tp[i] = new TcpProxy(tunnelName, listenPort, targetHost, targetPort, keyFile, keyPass);
+                tp[i] = new TcpProxy(tunnelName, listenPort, targetHost, targetPort, keyFile, keyPass, useSNI);
                 tp[i].serve();
                 Log.d(TAG, "Tunnel: "+tunnelName+" "+listenPort+" "+targetHost+" "+targetPort+" "+keyFile);
             } catch (Exception e) {
