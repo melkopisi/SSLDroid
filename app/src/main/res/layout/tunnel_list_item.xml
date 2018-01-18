@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|center_vertical"
+    android:orientation="vertical"
+    android:padding="10dip"
+    >
+  <TextView
+      android:id="@+id/text1"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:text="Tunnel Nickname"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      />
+  <!--  <TextView android:layout_width="wrap_content"
+    android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall"
+    android:text="Local port 8080 to 192.168.1.1:80" android:layout_below="@+id/text1" android:id="@+id/text2"/> -->
+</RelativeLayout>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="9"
+    android:versionName="1.2.6"
+    package="hu.blint.ssldroid">
+
+  <uses-sdk
+      android:minSdkVersion="9"
+      android:targetSdkVersion="17"/>
+  <permission
+      android:name="hu.blint.ssldroid.permission.startstop"
+      android:label="Start and stop the SSLDroid service"
+      android:protectionLevel="normal"/>
+
+  <uses-permission android:name="hu.blint.ssldroid.permission.startstop"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+  <uses-permission android:name="android.permission.READ_LOGS"/>
+
+  <application
+      android:allowBackup="true"
+      android:icon="@drawable/icon"
+      android:label="@string/app_name">
+    <activity
+        android:name="SSLDroidGui"
+        android:label="@string/app_name">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+    <activity
+        android:name=".SSLDroidTunnelDetails"
+        android:windowSoftInputMode="stateVisible|adjustResize"/>
+    <activity android:name=".SSLDroidReadLogs"/>
+    <!--<activity android:name=".SSLDroidProvisioning"/>-->
+
+    <service
+        android:name="SSLDroid"
+        android:enabled="true"
+        android:permission="hu.blint.ssldroid.permission.startstop">
+      <intent-filter>
+        <action android:name="hu.blint.ssldroid.SSLDroid"/>
+      </intent-filter>
+    </service>
+
+    <receiver android:name="BootStartupReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <category android:name="android.intent.category.HOME"/>
+      </intent-filter>
+    </receiver>
+    <receiver android:name="NetworkChangeReceiver">
+      <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+      </intent-filter>
+    </receiver>
+  </application>
+</manifest>

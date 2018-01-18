@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="vertical"
+    >
+  <TableLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="10dip"
+      android:paddingRight="10dip"
+      >
+    <TableRow>
+      <TextView
+          android:gravity="right|center_vertical"
+          android:paddingRight="10dip"
+          android:text="@string/connection_name"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          />
+
+      <EditText
+          android:id="@+id/name"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="Company mail server"
+          android:singleLine="true"
+          />
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:gravity="right|center_vertical"
+          android:paddingRight="10dip"
+          android:text="@string/local_port"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          />
+
+      <EditText
+          android:id="@+id/localport"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="8080"
+          android:inputType="number"
+          />
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:gravity="right|center_vertical"
+          android:paddingRight="10dip"
+          android:text="@string/remote_host"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          />
+
+      <EditText
+          android:id="@+id/remotehost"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="example.com"
+          android:inputType="textEmailAddress"
+          />
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:gravity="right|center_vertical"
+          android:paddingRight="10dip"
+          android:text="@string/remote_port"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          />
+
+      <EditText
+          android:id="@+id/remoteport"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="443"
+          android:inputType="number"
+          />
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:gravity="right|center_vertical"
+          android:paddingRight="10dip"
+          android:text="@string/cert_file"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          />
+
+      <EditText
+          android:id="@+id/pkcsfile"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="client.p12"
+          android:inputType="textEmailAddress"
+          />
+      <Button
+          android:id="@+id/pickFile"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="..."
+          ></Button>
+
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:gravity="right|center_vertical"
+          android:paddingRight="10dip"
+          android:text="@string/pkcspass"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          />
+
+      <EditText
+          android:id="@+id/pkcspass"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="Not mandatory"
+          android:password="true"
+          />
+    </TableRow>
+    <TableRow android:gravity="center">
+      <Button
+          android:id="@+id/tunnel_apply_button"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:gravity="center"
+          android:text="@string/apply"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          ></Button>
+    </TableRow>
+  </TableLayout>
+</ScrollView>

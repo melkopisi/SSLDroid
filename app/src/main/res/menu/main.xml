@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/addtunnel"
+      android:enabled="true"
+      android:icon="@android:drawable/ic_menu_add"
+      android:title="@string/add_tunnel"></item>
+  <item
+      android:id="@+id/startservice"
+      android:enabled="true"
+      android:icon="@android:drawable/ic_menu_manage"
+      android:title="@string/start_service"></item>
+  <item
+      android:id="@+id/stopservice"
+      android:enabled="true"
+      android:icon="@android:drawable/ic_menu_close_clear_cancel"
+      android:title="@string/stop_service"></item>
+  <item
+      android:id="@+id/stopserviceforgood"
+      android:enabled="true"
+      android:icon="@android:drawable/ic_menu_close_clear_cancel"
+      android:title="@string/stop_service_for_good"></item>
+  <item
+      android:id="@+id/readlogs"
+      android:enabled="true"
+      android:icon="@android:drawable/ic_menu_agenda"
+      android:title="@string/menu_readlogs"></item>
+  <!-- <item android:title="@string/menu_provision" android:id="@+id/provision" android:icon="@android:drawable/ic_menu_mapmode" android:enabled="true"></item> -->
+</menu>
