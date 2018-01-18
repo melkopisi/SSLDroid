@@ -32,8 +32,8 @@ public class BootStartupReceiver extends BroadcastReceiver {
 
   @Override public void onReceive(Context context, Intent intent) {
     if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-      Intent i = new Intent();
-      i.setAction("hu.blint.ssldroid.SSLDroid");
+      Intent i = new Intent(context,SSLDroid.class);
+      //i.setAction("hu.blint.ssldroid.SSLDroid");
       if (!isStopped(context)) {
         context.startService(i);
       } else {

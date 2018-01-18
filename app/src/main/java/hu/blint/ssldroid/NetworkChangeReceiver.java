@@ -37,15 +37,15 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
     if (activeNetInfo == null) {
-      Intent i = new Intent();
-      i.setAction("hu.blint.ssldroid.SSLDroid");
+      Intent i = new Intent(context,SSLDroid.class);
+      //i.setAction("hu.blint.ssldroid.SSLDroid");
       context.stopService(i);
       return;
     }
     Log.d("SSLDroid", activeNetInfo.toString());
     if (activeNetInfo.isAvailable()) {
-      Intent i = new Intent();
-      i.setAction("hu.blint.ssldroid.SSLDroid");
+      Intent i = new Intent(context,SSLDroid.class);
+      //i.setAction("hu.blint.ssldroid.SSLDroid");
       context.stopService(i);
       if (!isStopped(context)) {
         context.startService(i);
